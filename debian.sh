@@ -18,10 +18,10 @@ sudo apt-get update && \
 sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni && \
 
 ## kubernetes swap fail bypass
-sudo cat > /etc/systemd/system/kubelet.service.d/20-allow-swap.conf <<'endmsg'
+sudo cat > /etc/systemd/system/kubelet.service.d/20-allow-swap.conf <<'EOF'
 [Service]
 Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"
-endmsg
+EOF
 
 ## Start kubernetes setup
 sudo systemctl daemon-reload && \
@@ -42,26 +42,26 @@ sudo cp /etc/fstab /etc/fstab.bak && \
 sudo echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab && \
 
 ## Docker memory limit fix for debian based distro
-sudo cat > /etc/default/grub <<'endmsg'
+sudo cat > /etc/default/grub <<'EOF'
 GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
 GRUB_CMDLINE_LINUX_DEFAULT="maybe-ubiquity"
-endmsg
+EOF
 sudo update-grub && \
 
 ## To increase the available limit to say 999999
-sudo cat > /etc/sysctl.conf <<'endmsg'
+sudo cat > /etc/sysctl.conf <<'EOF'
 fs.file-max = 999999
 vm.swappiness=15
 vm.vfs_cache_pressure=50
 vm.max_map_count = 999999
 net.ipv4.ip_local_port_range = 1024 65535
-endmsg
+EOF
 
 # run this to refresh with new config
 sudo sysctl -p
 
 # add to increase file and system limits
-sudo cat > /etc/security/limits.conf <<'endmsg'
+sudo cat > /etc/security/limits.conf <<'EOF'
 * soft     nproc          999999
 * hard     nproc          999999
 * soft     nofile         999999
@@ -70,7 +70,7 @@ root soft     nproc          999999
 root hard     nproc          999999
 root soft     nofile         999999
 root hard     nofile         999999
-endmsg
+EOF
 
 # edit the following file
 sudo echo 'session required pam_limits.so' | sudo tee -a /etc/pam.d/common-session

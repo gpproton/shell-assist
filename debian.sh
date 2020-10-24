@@ -16,7 +16,6 @@ sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add
 sudo echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee -a /etc/apt/sources.list.d/kubernetes.list && \
 sudo apt-get update && \
 sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni && \
-sudo apt-mark hold kubelet kubeadm kubectl kubernetes-cni && \
 
 ## kubernetes swap fail bypass
 sudo cat > /etc/systemd/system/kubelet.service.d/20-allow-swap.conf <<'endmsg'

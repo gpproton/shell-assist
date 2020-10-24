@@ -9,7 +9,6 @@ sudo apt install -y molly-guard net-tools \
 curl wget python3-pip build-essential qemu-guest-agent \
 software-properties-common dirmngr apt-transport-https lsb-release ca-certificates \
 libssl-dev libffi-dev python3-dev python3-venv && \
-echo -ne '\n' | sudo add-apt-repository ppa:longsleep/golang-backports && \
 sudo apt install -y golang-go docker.io && \
 sudo systemctl enable docker.service --now && \
 sudo apt autoremove && \

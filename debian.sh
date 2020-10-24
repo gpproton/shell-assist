@@ -11,24 +11,11 @@ software-properties-common dirmngr apt-transport-https lsb-release ca-certificat
 libssl-dev libffi-dev python3-dev python3-venv && \
 sudo apt install -y golang-go docker.io && \
 sudo systemctl enable docker.service --now && \
-sudo apt autoremove && \
+sudo apt autoremove && rm -rf /etc/apt/sources.list.d/* && \
 sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add && \
 sudo echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee -a /etc/apt/sources.list.d/kubernetes.list && \
 sudo apt-get update && \
-sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni && \
-
-## kubernetes swap fail bypass
-sudo cat > /etc/systemd/system/kubelet.service.d/20-allow-swap.conf <<'EOF'
-[Service]
-Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"
-EOF
-
-## Start kubernetes setup
-sudo systemctl daemon-reload && \
-sudo echo "$(sudo kubeadm init --ignore-preflight-errors=Swap)" | sudo tee -a ~/kube-join-instructions.txt && \
-mkdir -p ~/.kube && \
-sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config && \
-sudo chown $(id -u):$(id -g) ~/.kube/config && \
+sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 ## Small swap space creation, not recommended.
 sudo swapoff -a && \
@@ -78,6 +65,41 @@ sudo echo 'session required pam_limits.so' | sudo tee -a /etc/pam.d/common-sessi
 # edit the following file
 sudo echo 'session required pam_limits.so' | sudo tee -a /etc/pam.d/common-session-noninteractive
 
+## Start kubernetes setup
+
+# kubernetes swap fail bypass
+sudo cat > /etc/systemd/system/kubelet.service.d/20-allow-swap.conf <<'EOF'
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"
+EOF
+
+kubeadm reset 
+echo 'Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"' | sudo tee -a /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+# Change docker default 
+cat > /etc/docker/daemon.json <<EOF
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sudo sysctl --system
+
+sudo systemctl daemon-reload &&systemctl restart kubelet && \
+sudo echo "$(sudo kubeadm init –ignore-preflight-errors Swap)" | sudo tee -a ~/kube-join-instructions.txt && \
+mkdir -p ~/.kube && \
+sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config && \
+sudo chown $(id -u):$(id -g) ~/.kube/config && \
+
 # logout and login and try the following command
 ulimit -n && \
-echo -ne "$(hostname -f)\n" | sudo reboot
+echo -ne "$(hostname -f)\n" | sudo /sbin/reboot

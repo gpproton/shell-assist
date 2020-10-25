@@ -73,7 +73,7 @@ sudo cat > /etc/systemd/system/kubelet.service.d/20-allow-swap.conf <<'EOF'
 Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"
 EOF
 
-kubeadm reset 
+echo -ne "y\n" | kubeadm reset 
 echo 'Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"' | sudo tee -a /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
 # Change docker default 

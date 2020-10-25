@@ -17,6 +17,9 @@ sudo echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee -a /
 sudo apt-get update && \
 sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
+## Set group permission
+sudo /sbin/usermod -aG docker $(id -un)
+
 ## Small swap space creation, not recommended.
 sudo swapoff -a && \
 sudo fallocate -l 8G /swapfile && \
@@ -28,10 +31,14 @@ sudo free -h && \
 sudo cp /etc/fstab /etc/fstab.bak && \
 sudo echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab && \
 
-## Set default aliases
+## Add alias and paths
 sudo cat > ~/.bashrc <<'EOF'
 alias python='python3'
 alias pip='pip3'
+
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/sbin:$PATH
+export PATH=/sbin:$PATH
 EOF
 
 ## Docker memory limit fix for debian based distro

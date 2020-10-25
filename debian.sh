@@ -94,11 +94,14 @@ net.bridge.bridge-nf-call-iptables = 1
 EOF
 sudo sysctl --system
 
-sudo systemctl daemon-reload &&systemctl restart kubelet && \
-sudo echo "$(sudo kubeadm init –ignore-preflight-errors Swap)" | sudo tee -a ~/kube-join-instructions.txt && \
-mkdir -p ~/.kube && \
-sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config && \
-sudo chown $(id -u):$(id -g) ~/.kube/config && \
+sudo systemctl daemon-reload &&systemctl restart kubelet
+
+# Start Kubernetes initialization process
+# TODO:Place a parameter condition here.
+#sudo echo "$(sudo kubeadm init –ignore-preflight-errors Swap)" | sudo tee -a ~/kube-join-instructions.txt && \
+#mkdir -p ~/.kube && \
+#sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config && \
+#sudo chown $(id -u):$(id -g) ~/.kube/config && \
 
 # logout and login and try the following command
 ulimit -n && \

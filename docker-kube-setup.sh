@@ -17,6 +17,10 @@ sudo echo 'deb http://apt.kubernetes.io/ kubernetes-xenial main' | sudo tee -a /
 sudo apt-get update && \
 sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
+## Set group permission
+sudo /sbin/usermod -aG docker $(id -un)
+sudo /sbin/usermod -aG sudo $(id -un)
+
 ## Small swap space creation, not recommended.
 sudo swapoff -a && \
 sudo fallocate -l 8G /swapfile && \
@@ -27,6 +31,16 @@ sudo swapon --show && \
 sudo free -h && \
 sudo cp /etc/fstab /etc/fstab.bak && \
 sudo echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab && \
+
+## Add alias and paths
+sudo cat > ~/.bashrc <<'EOF'
+alias python='python3'
+alias pip='pip3'
+
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/sbin:$PATH
+export PATH=/sbin:$PATH
+EOF
 
 ## Docker memory limit fix for debian based distro
 sudo cat > /etc/default/grub <<'EOF'
@@ -73,7 +87,7 @@ sudo cat > /etc/systemd/system/kubelet.service.d/20-allow-swap.conf <<'EOF'
 Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"
 EOF
 
-kubeadm reset 
+echo -ne "y\n" | kubeadm reset 
 echo 'Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"' | sudo tee -a /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
 # Change docker default 

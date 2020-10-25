@@ -19,6 +19,7 @@ sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 ## Set group permission
 sudo /sbin/usermod -aG docker $(id -un)
+sudo /sbin/usermod -aG sudo $(id -un)
 
 ## Small swap space creation, not recommended.
 sudo swapoff -a && \

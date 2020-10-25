@@ -28,6 +28,12 @@ sudo free -h && \
 sudo cp /etc/fstab /etc/fstab.bak && \
 sudo echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab && \
 
+## Set default aliases
+sudo cat > ~/.bashrc <<'EOF'
+alias python='python3'
+alias pip='pip3'
+EOF
+
 ## Docker memory limit fix for debian based distro
 sudo cat > /etc/default/grub <<'EOF'
 GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"

@@ -2,17 +2,15 @@
 
 # Determine OS platform
 case $(uname | tr '[:upper:]' '[:lower:]') in
-  linux*)
-    export UNAME=linux
+  linux*) export UNAME=linux
     ;;
-  darwin*)
-    export UNAME=osx
+  darwin*) export UNAME=osx
     ;;
-  msys*)
-    export UNAME=windows
+  bsd*) export UNAME=bsd
     ;;
-  *)
-    export UNAME=notset
+  msys*) export UNAME=windows
+    ;;
+  *) export UNAME=unknown
     ;;
 esac
 

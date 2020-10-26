@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Determine OS platform
 UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 

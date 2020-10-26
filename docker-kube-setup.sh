@@ -1,7 +1,20 @@
 #!/bin/bash
 
 # Determine OS platform
-UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+case $(uname | tr '[:upper:]' '[:lower:]') in
+  linux*)
+    export UNAME=linux
+    ;;
+  darwin*)
+    export UNAME=osx
+    ;;
+  msys*)
+    export UNAME=windows
+    ;;
+  *)
+    export UNAME=notset
+    ;;
+esac
 
 # If Linux, try to determine specific distribution
 if [ "$UNAME" == "linux" ]; then

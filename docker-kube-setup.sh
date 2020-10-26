@@ -3,7 +3,6 @@ UNAME=$(uname | tr "[:upper:]" "[:lower:]")
 
 # If Linux, try to determine specific distribution
 if [ "$UNAME" == "linux" ]; then
-
   ################################
   ######  Check distro type ######
   ################################
@@ -140,5 +139,6 @@ EOF
   # logout and login and try the following command
   ulimit -n && \
   echo -ne "$(hostname -f)\n" | sudo /sbin/reboot
-
+else
+  echo "$UNAME is an incompatible OS.."
 fi

@@ -2,7 +2,7 @@
 
 # Determine OS platform
 case $(uname | tr '[:upper:]' '[:lower:]') in
-  linux*) export UNAME=linux
+  linux*) export UNAME=linux; export DISTRO=null
     ;;
   darwin*) export UNAME=osx
     ;;
@@ -16,6 +16,7 @@ esac
 
 # If Linux, try to determine specific distribution
 if [ "$UNAME" == "linux" ]; then
+
   ################################
   ######  Check distro type ######
   ################################
@@ -148,6 +149,9 @@ EOF
   sudo echo 'session required pam_limits.so' | sudo tee -a /etc/pam.d/common-session
   sudo echo 'session required pam_limits.so' | sudo tee -a /etc/pam.d/common-session-noninteractive
 
+  # Unset distro tag
+  unset DISTRO
+
   # logout and login and try the following command
   ulimit -n && \
   echo -ne "$(hostname -f)\n" | sudo /sbin/reboot
@@ -155,4 +159,3 @@ else
   echo "$UNAME is an incompatible OS.."
 fi
 unset UNAME
-unset DISTRO

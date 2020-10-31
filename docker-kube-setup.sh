@@ -81,14 +81,6 @@ EOF
   # Reload services config and restart kube service.
   sudo systemctl daemon-reload && systemctl restart kubelet
 
-  # Start Kubernetes initialization process
-  # TODO:Place a parameter condition here.
-  #sudo echo "$(sudo kubeadm init –ignore-preflight-errors Swap)" | sudo tee -a ~/kube-join-instructions.txt && \
-  #mkdir -p ~/.kube && \
-  #sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config && \
-  #sudo chown $(id -u):$(id -g) ~/.kube/config && \
-
-
   ## Set group permission
   sudo /sbin/usermod -aG docker $(id -un)
   sudo /sbin/usermod -aG sudo $(id -un)

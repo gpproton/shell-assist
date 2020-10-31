@@ -1,5 +1,18 @@
+#!/bin/bash
+
 # Determine OS platform
-UNAME=$(uname | tr "[:upper:]" "[:lower:]")
+case $(uname | tr '[:upper:]' '[:lower:]') in
+  linux*) export UNAME=linux; export DISTRO=null
+    ;;
+  darwin*) export UNAME=osx
+    ;;
+  bsd*) export UNAME=bsd
+    ;;
+  msys*) export UNAME=windows
+    ;;
+  *) export UNAME=unknown
+    ;;
+esac
 
 # If Linux, try to determine specific distribution
 if [ "$UNAME" == "linux" ]; then
@@ -7,6 +20,13 @@ if [ "$UNAME" == "linux" ]; then
   ################################
   ######  Check distro type ######
   ################################
+    if [ -f /etc/lsb-release -o -d /etc/lsb-release.d ]; then
+        export DISTRO=$(lsb_release -i | cut -d: -f2 | sed s/'^\t'//)
+    # Otherwise, use release info file
+    else
+        export DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
+    fi
+    echo "OS is $UNAME, while distro is $DISTRO"
 
   ## debian-server essentials
   apt update && \
@@ -69,14 +89,6 @@ EOF
   # Reload services config and restart kube service.
   sudo systemctl daemon-reload && systemctl restart kubelet
 
-  # Start Kubernetes initialization process
-  # TODO:Place a parameter condition here.
-  #sudo echo "$(sudo kubeadm init –ignore-preflight-errors Swap)" | sudo tee -a ~/kube-join-instructions.txt && \
-  #mkdir -p ~/.kube && \
-  #sudo cp -i /etc/kubernetes/admin.conf ~/.kube/config && \
-  #sudo chown $(id -u):$(id -g) ~/.kube/config && \
-
-
   ## Set group permission
   sudo /sbin/usermod -aG docker $(id -un)
   sudo /sbin/usermod -aG sudo $(id -un)
@@ -137,8 +149,13 @@ EOF
   sudo echo 'session required pam_limits.so' | sudo tee -a /etc/pam.d/common-session
   sudo echo 'session required pam_limits.so' | sudo tee -a /etc/pam.d/common-session-noninteractive
 
+  # Unset distro tag
+  unset DISTRO
+
   # logout and login and try the following command
   ulimit -n && \
   echo -ne "$(hostname -f)\n" | sudo /sbin/reboot
-
+else
+  echo "$UNAME is an incompatible OS.."
 fi
+unset UNAME

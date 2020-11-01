@@ -14,10 +14,8 @@ case $(uname | tr '[:upper:]' '[:lower:]') in
     ;;
 esac
 
-echo "**${UNAME}** is it eq linux"
-
 # If Linux, try to determine specific distribution
-if [ "${UNAME}" == "linux" ]; then
+if [[ "$UNAME" == linux ]]; then
   export DISTRO=null
   ################################
   ######  Check distro type ######

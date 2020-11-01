@@ -44,7 +44,7 @@ if [[ "$UNAME" == linux ]]; then
   libssl-dev libffi-dev python3-dev python3-venv golang-go
 
   # Install and setup docker
-  sudo apt install -y docker.io && \
+  sudo apt install -y docker.io docker-compose && \
   sudo systemctl enable docker.service --now
 
   # Change docker default cgroup driver
@@ -129,9 +129,6 @@ EOF
   vm.max_map_count = 999999
   net.ipv4.ip_local_port_range = 1024 65535
 EOF
-
-  # Install docker-compose
-  pip --version && pip install docker-compose && docker-compose --version
 
   # Update system limit with new config
   sudo sysctl -p

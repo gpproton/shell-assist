@@ -2,7 +2,7 @@
 
 # Determine OS platform
 case $(uname | tr '[:upper:]' '[:lower:]') in
-  linux*) export UNAME=linux; export DISTRO=null
+  linux*) export UNAME=linux
     ;;
   darwin*) export UNAME=osx
     ;;
@@ -16,7 +16,7 @@ esac
 
 # If Linux, try to determine specific distribution
 if [ "$UNAME" == "linux" ]; then
-
+  export DISTRO=null
   ################################
   ######  Check distro type ######
   ################################

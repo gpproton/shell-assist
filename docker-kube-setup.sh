@@ -2,7 +2,7 @@
 
 # Determine OS platform
 case $(uname | tr '[:upper:]' '[:lower:]') in
-  linux*) export UNAME=linux; export DISTRO=null
+  linux*) export UNAME=linux
     ;;
   darwin*) export UNAME=osx
     ;;
@@ -15,8 +15,8 @@ case $(uname | tr '[:upper:]' '[:lower:]') in
 esac
 
 # If Linux, try to determine specific distribution
-if [ "$UNAME" == "linux" ]; then
-
+if [[ "$UNAME" == linux ]]; then
+  export DISTRO=null
   ################################
   ######  Check distro type ######
   ################################
@@ -44,7 +44,7 @@ if [ "$UNAME" == "linux" ]; then
   libssl-dev libffi-dev python3-dev python3-venv golang-go
 
   # Install and setup docker
-  sudo apt install -y docker.io && \
+  sudo apt install -y docker.io docker-compose && \
   sudo systemctl enable docker.service --now
 
   # Change docker default cgroup driver
@@ -74,11 +74,23 @@ EOF
   Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"
 EOF
 
-  echo -ne "y\n" | kubeadm reset 
-  echo 'Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"' | sudo tee -a /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+  echo -ne "y\n" | sudo kubeadm reset 
+  sudo sed -i '9s/^/Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"\n/' /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+  sudo echo "
+  kind: MasterConfiguration
+  apiVersion: kubeadm.k8s.io/v1alpha1
+  api:
+    bindPort: ${K8S_API_PORT}
+  apiServerCertSANs: ${K8S_API_EXTRA_HOSTS}
+  " > /opt/kube-setup/config.yaml
+  ## Start cluster initialization
+  #kubeadm init --config /opt/kube-setup/config.yaml --ignore-preflight-errors Swap
+  ## make possible to run workload on master
+  #kubectl taint nodes --all node-role.kubernetes.io/master-
 
   # Allows network bridging.
-  cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+  sudo cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
   net.bridge.bridge-nf-call-ip6tables = 1
   net.bridge.bridge-nf-call-iptables = 1
 EOF

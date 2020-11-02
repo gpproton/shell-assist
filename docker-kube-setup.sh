@@ -84,6 +84,7 @@ EOF
     bindPort: ${K8S_API_PORT}
   apiServerCertSANs: ${K8S_API_EXTRA_HOSTS}
   " > /opt/kube-setup/config.yaml
+  
   ## Start cluster initialization
   #kubeadm init --config /opt/kube-setup/config.yaml --ignore-preflight-errors Swap
   ## make possible to run workload on master

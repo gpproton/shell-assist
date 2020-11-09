@@ -41,7 +41,8 @@ if [[ "$UNAME" == linux ]]; then
   sudo apt install -y molly-guard net-tools \
   curl wget python3-pip build-essential qemu-guest-agent \
   software-properties-common dirmngr apt-transport-https lsb-release ca-certificates \
-  libssl-dev libffi-dev python3-dev python3-venv golang-go
+  libssl-dev libffi-dev python3-dev python3-venv golang-go \
+  iptables-persistent fail2ban psad
 
   # Install and setup docker
   sudo apt install -y docker.io docker-compose && \
@@ -131,7 +132,7 @@ EOF
   sudo cat > /etc/default/grub <<'EOF'
   GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
   GRUB_CMDLINE_LINUX_DEFAULT="maybe-ubiquity"
-  EOF
+EOF
   sudo update-grub && \
 
   ## To increase the available limit to say 999999

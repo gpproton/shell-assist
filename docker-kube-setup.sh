@@ -101,7 +101,9 @@ EOF
   sudo sysctl --system
 
   # Reload services config and restart kube service.
-  sudo systemctl daemon-reload && systemctl restart kubelet
+  sudo systemctl daemon-reload && systemctl restart kubelet \
+  # Enable iptables persist automatically
+  && sudo systemctl enable netfilter-persistent
 
   ## Set group permission
   sudo /sbin/usermod -aG docker $(id -un)

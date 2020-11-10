@@ -103,7 +103,9 @@ EOF
   # Reload services config and restart kube service.
   sudo systemctl daemon-reload && systemctl restart kubelet \
   # Enable iptables persist automatically
-  && sudo systemctl enable netfilter-persistent
+  && sudo systemctl enable netfilter-persistent \
+  && sudo systemctl enable fail2ban \
+  && sudo systemctl enable psad
 
   ## Set group permission
   sudo /sbin/usermod -aG docker $(id -un)
@@ -144,6 +146,7 @@ EOF
   vm.vfs_cache_pressure=50
   vm.max_map_count = 999999
   net.ipv4.ip_local_port_range = 1024 65535
+  net.ipv4.ip_forward = 1
 EOF
 
   # Update system limit with new config

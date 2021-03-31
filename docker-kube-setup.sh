@@ -41,7 +41,8 @@ if [[ "$UNAME" == linux ]]; then
   sudo apt install -y molly-guard net-tools \
   curl wget python3-pip build-essential qemu-guest-agent \
   software-properties-common dirmngr apt-transport-https lsb-release ca-certificates \
-  libssl-dev libffi-dev python3-dev python3-venv golang-go
+  libssl-dev libffi-dev python3-dev python3-venv golang-go \
+  iptables-persistent fail2ban psad
 
   # Install and setup docker
   sudo apt install -y docker.io docker-compose && \
@@ -84,6 +85,7 @@ EOF
     bindPort: ${K8S_API_PORT}
   apiServerCertSANs: ${K8S_API_EXTRA_HOSTS}
   " > /opt/kube-setup/config.yaml
+  
   ## Start cluster initialization
   #kubeadm init --config /opt/kube-setup/config.yaml --ignore-preflight-errors Swap
   ## make possible to run workload on master
@@ -99,7 +101,11 @@ EOF
   sudo sysctl --system
 
   # Reload services config and restart kube service.
-  sudo systemctl daemon-reload && systemctl restart kubelet
+  sudo systemctl daemon-reload && systemctl restart kubelet \
+  # Enable iptables persist automatically
+  && sudo systemctl enable netfilter-persistent \
+  && sudo systemctl enable fail2ban \
+  && sudo systemctl enable psad
 
   ## Set group permission
   sudo /sbin/usermod -aG docker $(id -un)
@@ -130,7 +136,7 @@ EOF
   sudo cat > /etc/default/grub <<'EOF'
   GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
   GRUB_CMDLINE_LINUX_DEFAULT="maybe-ubiquity"
-  EOF
+EOF
   sudo update-grub && \
 
   ## To increase the available limit to say 999999
@@ -140,6 +146,7 @@ EOF
   vm.vfs_cache_pressure=50
   vm.max_map_count = 999999
   net.ipv4.ip_local_port_range = 1024 65535
+  net.ipv4.ip_forward = 1
 EOF
 
   # Update system limit with new config

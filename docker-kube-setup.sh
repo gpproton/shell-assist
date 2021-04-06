@@ -50,14 +50,14 @@ if [[ "$UNAME" == linux ]]; then
 
   # Change docker default cgroup driver
   cat > /etc/docker/daemon.json <<EOF
-  {
-    "exec-opts": ["native.cgroupdriver=systemd"],
-    "log-driver": "json-file",
-    "log-opts": {
-      "max-size": "100m"
-    },
-    "storage-driver": "overlay2"
-  }
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
 EOF
 
   # Clear old custom repos.
@@ -71,8 +71,8 @@ EOF
 
   # kubernetes swap fail bypass
   sudo cat > /etc/systemd/system/kubelet.service.d/20-allow-swap.conf <<'EOF'
-  [Service]
-  Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"
+[Service]
+Environment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"
 EOF
 
   echo -ne "y\n" | sudo kubeadm reset 
@@ -93,8 +93,8 @@ EOF
 
   # Allows network bridging.
   sudo cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-  net.bridge.bridge-nf-call-ip6tables = 1
-  net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
 EOF
 
   # Reload system limit configs
@@ -124,31 +124,31 @@ EOF
 
   ## Add alias and paths
   sudo cat > ~/.bashrc <<'EOF'
-  alias python='python3'
-  alias pip='pip3'
+alias python='python3'
+alias pip='pip3'
 
-  export PATH=/usr/local/sbin:$PATH
-  export PATH=/usr/sbin:$PATH
-  export PATH=/sbin:$PATH
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/sbin:$PATH
+export PATH=/sbin:$PATH
 EOF
 
   ## Docker memory limit fix for debian based distro
   sudo cat > /etc/default/grub <<'EOF'
-  GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
-  GRUB_CMDLINE_LINUX_DEFAULT="maybe-ubiquity"
+GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+GRUB_CMDLINE_LINUX_DEFAULT="maybe-ubiquity"
 EOF
   sudo update-grub && \
 
   ## To increase the available limit to say 999999
-  sudo cat > /etc/sysctl.conf <<'EOF'
-  kernel.panic = 10
-  net.ipv6.conf.all.disable_ipv6 = 1
-  fs.file-max = 999999
-  vm.swappiness=15
-  vm.vfs_cache_pressure=50
-  vm.max_map_count = 999999
-  net.ipv4.ip_local_port_range = 1024 65535
-  net.ipv4.ip_forward = 1
+sudo cat > /etc/sysctl.conf <<'EOF'
+kernel.panic = 10
+net.ipv6.conf.all.disable_ipv6 = 1
+fs.file-max = 999999
+vm.swappiness=15
+vm.vfs_cache_pressure=50
+vm.max_map_count = 999999
+net.ipv4.ip_local_port_range = 1024 65535
+net.ipv4.ip_forward = 1
 EOF
 
   # Update system limit with new config
@@ -156,14 +156,14 @@ EOF
 
   # add to increase file and system limits
   sudo cat > /etc/security/limits.conf <<'EOF'
-  * soft     nproc          999999
-  * hard     nproc          999999
-  * soft     nofile         999999
-  * hard     nofile         999999
-  root soft     nproc          999999
-  root hard     nproc          999999
-  root soft     nofile         999999
-  root hard     nofile         999999
+* soft     nproc          999999
+* hard     nproc          999999
+* soft     nofile         999999
+* hard     nofile         999999
+root soft     nproc          999999
+root hard     nproc          999999
+root soft     nofile         999999
+root hard     nofile         999999
 EOF
 
   # edit the following file

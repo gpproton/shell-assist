@@ -141,6 +141,8 @@ EOF
 
   ## To increase the available limit to say 999999
   sudo cat > /etc/sysctl.conf <<'EOF'
+  kernel.panic = 10
+  net.ipv6.conf.all.disable_ipv6 = 1
   fs.file-max = 999999
   vm.swappiness=15
   vm.vfs_cache_pressure=50

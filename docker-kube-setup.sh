@@ -143,7 +143,7 @@ EOF
 sudo cat > /etc/sysctl.conf <<'EOF'
 kernel.panic = 10
 net.ipv6.conf.all.disable_ipv6 = 1
-fs.file-max = 999999
+fs.file-max = 1024000
 vm.swappiness=15
 vm.vfs_cache_pressure=50
 vm.max_map_count = 1024000

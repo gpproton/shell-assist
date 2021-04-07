@@ -146,7 +146,7 @@ net.ipv6.conf.all.disable_ipv6 = 1
 fs.file-max = 999999
 vm.swappiness=15
 vm.vfs_cache_pressure=50
-vm.max_map_count = 999999
+vm.max_map_count = 1024000
 net.ipv4.ip_local_port_range = 1024 65535
 net.ipv4.ip_forward = 1
 EOF
@@ -156,14 +156,14 @@ EOF
 
   # add to increase file and system limits
   sudo cat > /etc/security/limits.conf <<'EOF'
-* soft     nproc          999999
-* hard     nproc          999999
-* soft     nofile         999999
-* hard     nofile         999999
-root soft     nproc          999999
-root hard     nproc          999999
-root soft     nofile         999999
-root hard     nofile         999999
+* soft     nproc          1024000
+* hard     nproc          1024000
+* soft     nofile         1024000
+* hard     nofile         1024000
+root soft     nproc          1024000
+root hard     nproc          1024000
+root soft     nofile         1024000
+root hard     nofile         1024000
 EOF
 
   # edit the following file

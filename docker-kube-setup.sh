@@ -141,7 +141,7 @@ EOF
 
   ## To increase the available limit to say 999999
   sudo cat > /etc/sysctl.conf <<'EOF'
-  fs.file-max = 999999
+  fs.file-max = 1024000
   vm.swappiness=15
   vm.vfs_cache_pressure=50
   vm.max_map_count = 999999
@@ -154,14 +154,14 @@ EOF
 
   # add to increase file and system limits
   sudo cat > /etc/security/limits.conf <<'EOF'
-  * soft     nproc          999999
-  * hard     nproc          999999
-  * soft     nofile         999999
-  * hard     nofile         999999
-  root soft     nproc          999999
-  root hard     nproc          999999
-  root soft     nofile         999999
-  root hard     nofile         999999
+  * soft     nproc          1024000
+  * hard     nproc          1024000
+  * soft     nofile         1024000
+  * hard     nofile         1024000
+  root soft     nproc          1024000
+  root hard     nproc          1024000
+  root soft     nofile         1024000
+  root hard     nofile         1024000
 EOF
 
   # edit the following file

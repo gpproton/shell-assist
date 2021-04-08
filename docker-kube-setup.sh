@@ -46,8 +46,7 @@ if [[ "$UNAME" == linux ]]; then
 
   # Install and setup docker
   sudo apt install -y docker.io docker-compose && \
-  sudo systemctl enable docker.service --now
-
+  sudo systemctl enable docker.service --now && \
   # Change docker default cgroup driver
   cat > /etc/docker/daemon.json <<EOF
 {

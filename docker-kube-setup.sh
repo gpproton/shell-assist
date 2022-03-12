@@ -148,6 +148,7 @@ vm.vfs_cache_pressure=50
 vm.max_map_count = 1024000
 net.ipv4.ip_local_port_range = 1024 65535
 net.ipv4.ip_forward = 1
+fs.inotify.max_user_watches = 524288
 EOF
 
   # Update system limit with new config

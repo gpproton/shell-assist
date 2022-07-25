@@ -3,7 +3,6 @@ source ~/.bashrc.d/docker-shared.bashrc
 
 function dsd-fn() {
   unset ddir
-  unset n-get-file
   ddir=${2:-${PWD##*/}}
   fn-get-file $ddir $1
   (

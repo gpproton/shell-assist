@@ -59,16 +59,6 @@ function dc-fn() {
   eval "$doc $full_options"
 }
 
-function dcu-fn() {
-  get-root-fn $*
-  eval "$doc $full_options up"
-}
-
-function dcud-fn() {
-  get-root-fn $*
-  eval "$doc $full_options up -d"
-}
-
 function dcd-fn() {
   get-root-fn $*
   eval "$doc $full_options down"
@@ -85,11 +75,19 @@ function dcps-fn() {
 }
 
 alias dc=dc-fn
-alias dcu=dcu-fn
-alias dcud=dcud-fn
 alias dcd=dcd-fn
 alias dcdv=dcdv-fn
 alias dcps=dcps-fn
+
+function dcu-fn() {
+  get-root-fn $*
+  eval "$doc $cmd_options up $args"
+}
+
+function dcud-fn() {
+  get-root-fn $*
+  eval "$doc $cmd_options up -d $args"
+}
 
 function dcst-fn() {
   get-root-fn $*
@@ -113,11 +111,25 @@ function dcpull-fn() {
 
 function dcbuild-fn() {
   get-root-fn $*
-  eval "$doc $cmd_options build $args"
+  eval "$doc $cmd_options build --parallel $args"
 }
 
+function dcpush-fn() {
+  get-root-fn $*
+  eval "$doc $cmd_options push $args"
+}
+
+function dclog-fn() {
+  get-root-fn $*
+  eval "$doc $cmd_options logs -f $args"
+}
+
+alias dcu=dcu-fn
+alias dcud=dcud-fn
 alias dcst=dcst-fn
 alias dcstp=dcstp-fn
 alias dcrst=dcrst-fn
 alias dcpull=dcpull-fn
 alias dcbuild=dcbuild-fn
+alias dcpush=dcpush-fn
+alias dclog=dclog-fn

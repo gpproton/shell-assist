@@ -17,6 +17,8 @@ function fn-get-file() {
     ## Env and compose file validation
     if [ ! -f $compose_file ] || [ ! -f $env_file ]; then
         echo "Missing compose or env file" >&2
+        echo "Compose: $compose_file"
+        echo "File: $env_file"
         return 1
     fi
 }

@@ -1,5 +1,11 @@
 ## General command aliases
 
+## Create directory and move into it.
+function mkcd-fn() {
+    mkdir -p $1
+    cd $1
+}
+
 alias c='clear'
 alias ls='ls --color=auto'
 alias ll='ls -la'
@@ -14,6 +20,7 @@ alias ....='cd ../../../../'
 alias .....='cd ../../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
+alias mkcd=mkcd-fn
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'

@@ -2,6 +2,11 @@
 
 Scripts to perform rapid setup and simplify shell commands for any unix compatible system.
 
+## Roadmap for utilities
+- [ ] Change all script commands to functions
+- [ ] implement command secltion for script
+- [ ] Add variables for OS types
+- [ ] Implement conditional command per OS
 
 MIT License
 

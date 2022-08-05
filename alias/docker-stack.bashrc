@@ -1,8 +1,8 @@
-if [ -f "$(dirname $0)/docker.shared.bashrc" ]; then
-  source "$(dirname $0)/docker.shared.bashrc"
+if [ -f "$(dirname $0)/_docker.bashrc" ]; then
+  source "$(dirname $0)/_docker.bashrc"
 fi
 
-function dsd-fn() {
+function dsd() {
   unset ddir
   ddir=${2:-${PWD##*/}}
   fn-get-file $ddir $1
@@ -15,24 +15,20 @@ function dsd-fn() {
   )
 }
 
-function dsrm-fn() {
+function dsrm() {
   fn-get-file $1
   docker stack rm $stack
 }
 
-function dsps-fn() {
+function dsps() {
   fn-get-file $1
   docker stack ps $stack
 }
 
-function dss-fn() {
+function dss() {
   fn-get-file $1
   docker stack services $stack
 }
 
-alias dsd=dsd-fn
-alias dsrm=dsrm-fn
-alias dsps=dsps-fn
-alias dss=dss-fn
 alias dsls='docker stack ls'
 alias dslog="docker service logs -f $*"

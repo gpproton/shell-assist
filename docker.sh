@@ -4,6 +4,8 @@ if [ -f "$(dirname $0)/_shared.bashrc" ]; then
     source "$(dirname $0)/_shared.bashrc"
 fi
 
+sudo apt-get remove docker docker-engine docker.io containerd runc
+
 # Install and setup docker
 sudo apt install -y docker.io docker-compose &&
     sudo systemctl enable docker.service --now &&

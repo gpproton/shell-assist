@@ -4,6 +4,9 @@
     ./general.sh
 )
 
+#setup essentials
+fn-setup-essentials
+
 ## debian-server essentials
 apt update &&
     apt install -y sudo openssh-server
@@ -15,8 +18,8 @@ sudo echo 'PermitRootLgin no' | sudo tee -a /etc/ssh/sshd_configs &&
 # Start upgrade and common util install.
 sudo apt -y upgrade &&
     sudo apt install -y molly-guard net-tools \
-        curl wget python3-pip build-essential qemu-guest-agent \
-        software-properties-common dirmngr apt-transport-https lsb-release ca-certificates \
+        python3-pip build-essential qemu-guest-agent \
+        software-properties-common dirmngr apt-transport-https \
         libssl-dev libffi-dev python3-dev python3-venv golang-go \
         iptables-persistent fail2ban psad
 

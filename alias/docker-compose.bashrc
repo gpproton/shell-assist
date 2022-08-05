@@ -1,5 +1,6 @@
-## Docker compose aliases
-source ~/.bashrc.d/docker-shared.bashrc
+if [ -f "$(dirname $0)/docker.shared.bashrc" ]; then
+  source "$(dirname $0)/docker.shared.bashrc"
+fi
 
 function help-info() {
   echo ""

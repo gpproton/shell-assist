@@ -1,5 +1,3 @@
-## Shared items
-
 function fn-get-file() {
     unset env_file
     unset stack

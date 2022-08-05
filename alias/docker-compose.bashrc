@@ -75,6 +75,7 @@ function dcps-fn() {
   eval "$doc $full_options ps"
 }
 
+## Simple alias
 alias dc=dc-fn
 alias dcd=dcd-fn
 alias dcdv=dcdv-fn
@@ -125,6 +126,7 @@ function dclog-fn() {
   eval "$doc $cmd_options logs -f $args"
 }
 
+## Extra options alias
 alias dcu=dcu-fn
 alias dcud=dcud-fn
 alias dcst=dcst-fn

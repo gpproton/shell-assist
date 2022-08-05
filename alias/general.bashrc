@@ -3,6 +3,7 @@
 alias c='clear'
 alias ls='ls --color=auto'
 alias ll='ls -la'
+alias cls='clear;ls'
 ## Show hidden files ##
 alias l.='ls -d .* --color=auto'
 ## get rid of command not found ##
@@ -14,6 +15,12 @@ alias ....='cd ../../../../'
 alias .....='cd ../../../../'
 alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
+
+## Create directory and move into it.
+function mkcd() {
+    mkdir -p $1
+    cd $1
+}
 ## Colorize the grep command output for ease of use (good for log files)##
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'

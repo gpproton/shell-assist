@@ -1,5 +1,6 @@
-## Docker compose aliases
-source ~/.bashrc.d/docker-shared.bashrc
+if [ -f "$(dirname $0)/_docker.bashrc" ]; then
+  source "$(dirname $0)/_docker.bashrc"
+fi
 
 function help-info() {
   echo ""
@@ -9,7 +10,7 @@ function help-info() {
   exit 1 # Exit script
 }
 ## Directory!!!
-function get-params() {
+function get-params-fn() {
   ## Clear existing variables
   unset arg_file_name arg_proj_name arg_proj_path
   unset proj_path project_name
@@ -46,7 +47,7 @@ function get-params() {
 }
 
 function get-root-fn {
-  get-params $*
+  get-params-fn $*
   unset doc cmd_options full_options
 
   doc="docker-compose"
@@ -54,82 +55,67 @@ function get-root-fn {
   full_options="$cmd_options $args"
 }
 
-function dc-fn() {
+function dc() {
   get-root-fn $*
   eval "$doc $full_options"
 }
 
-function dcd-fn() {
+function dcd() {
   get-root-fn $*
   eval "$doc $full_options down"
 }
 
-function dcdv-fn() {
+function dcdv() {
   get-root-fn $*
   eval "$doc $full_options down -v"
 }
 
-function dcps-fn() {
+function dcps() {
   get-root-fn $*
   eval "$doc $full_options ps"
 }
 
-alias dc=dc-fn
-alias dcd=dcd-fn
-alias dcdv=dcdv-fn
-alias dcps=dcps-fn
-
-function dcu-fn() {
+function dcu() {
   get-root-fn $*
   eval "$doc $cmd_options up $args"
 }
 
-function dcud-fn() {
+function dcud() {
   get-root-fn $*
   eval "$doc $cmd_options up -d $args"
 }
 
-function dcst-fn() {
+function dcst() {
   get-root-fn $*
   eval "$doc $cmd_options start $args"
 }
 
-function dcstp-fn() {
+function dcstp() {
   get-root-fn $*
   eval "$doc $cmd_options stop $args"
 }
 
-function dcrst-fn() {
+function dcrst() {
   get-root-fn $*
   eval "$doc $cmd_options restart $args"
 }
 
-function dcpull-fn() {
+function dcpull() {
   get-root-fn $*
   eval "$doc $cmd_options pull $args"
 }
 
-function dcbuild-fn() {
+function dcbuild() {
   get-root-fn $*
   eval "$doc $cmd_options build --parallel $args"
 }
 
-function dcpush-fn() {
+function dcpush() {
   get-root-fn $*
   eval "$doc $cmd_options push $args"
 }
 
-function dclog-fn() {
+function dclog() {
   get-root-fn $*
   eval "$doc $cmd_options logs -f $args"
 }
-
-alias dcu=dcu-fn
-alias dcud=dcud-fn
-alias dcst=dcst-fn
-alias dcstp=dcstp-fn
-alias dcrst=dcrst-fn
-alias dcpull=dcpull-fn
-alias dcbuild=dcbuild-fn
-alias dcpush=dcpush-fn
-alias dclog=dclog-fn

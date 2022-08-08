@@ -12,7 +12,7 @@ apt update &&
     apt install -y sudo openssh-server
 
 # Setup openssh server
-sudo echo 'PermitRootLgin no' | sudo tee -a /etc/ssh/sshd_configs &&
+sudo echo 'PermitRootLgin no' | sudo tee -a /etc/ssh/sshd_config &&
     sudo systemctl enable sshd && sudo systemctl restart sshd
 
 # Start upgrade and common util install.

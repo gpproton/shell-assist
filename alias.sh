@@ -1,17 +1,16 @@
 #!/bin/bash
 ## Copy to newly created directory
 mkdir -p ~/.bashrc.d/ && rm -rf ~/.bashrc.d/* &&
-    cp -r ./alias/*.bashrc ~/.bashrc.d/
+	cp -r ./alias/*.bashrc ~/.bashrc.d/
 cat >>~/.bashrc <<EOF
 ## Load all bash alias from path
-if [ -d ~/.bashrc.d ]; then
-	for rc in ~/.bashrc.d/*; do
-		if [ -f "$rc" ]; then
-			. "$rc"
+if [ -d "~/.bashrc.d" ]; then
+	for rc in "~/.bashrc.d/*"; do
+		if [ -f "\$rc" ]; then
+			. "\$rc"
 		fi
 	done
 fi
-
 EOF
 
 ## Optional usage.

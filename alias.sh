@@ -1,9 +1,9 @@
 #!/bin/bash
 ## Copy to newly created directory
-alias_path="$HOME/.bashrc"
+alias_path="$HOME/.bashrc.d"
 mkdir -p $alias_path && rm -rf "$alias_path/*" &&
 	cp -r ./alias/*.bashrc $alias_path
-cat >>"$alias_path" <<EOF
+cat >>"$HOME/.bashrc" <<SHELL
 ## Load all bash alias from path
 if [ -d "\$HOME/.bashrc.d/" ]; then
 	for rc in "\$HOME/.bashrc.d/*"; do
@@ -12,7 +12,7 @@ if [ -d "\$HOME/.bashrc.d/" ]; then
 		fi
 	done
 fi
-EOF
+SHELL
 
 ## Optional usage.
 # alias_path="~/.bashrc.d"

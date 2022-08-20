@@ -4,8 +4,8 @@ mkdir -p ~/.bashrc.d/ && rm -rf ~/.bashrc.d/* &&
 	cp -r ./alias/*.bashrc ~/.bashrc.d/
 cat >>~/.bashrc <<EOF
 ## Load all bash alias from path
-if [ -d "~/.bashrc.d" ]; then
-	for rc in "~/.bashrc.d/*"; do
+if [ -d "\$HOME/.bashrc.d" ]; then
+	for rc in "\$HOME/.bashrc.d/*"; do
 		if [ -f "\$rc" ]; then
 			. "\$rc"
 		fi

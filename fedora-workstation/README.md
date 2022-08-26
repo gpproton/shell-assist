@@ -83,6 +83,9 @@ flatpak install com.mattjakeman.ExtensionManager
 ```bash
 sudo dnf install -y wget curl caffeine \
 timeshift google-chrome-stable dnf-plugins-core
+## Setup network display feature
+sudo dnf -y install gstreamer1-vaapi && \
+flatpak install -y flathub org.gnome.NetworkDisplays
 ```
 
 ## Start general extensions setup

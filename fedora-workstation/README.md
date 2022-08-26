@@ -418,7 +418,7 @@ com.notepadqq.Notepadqq md.obsidian.Obsidian \
 org.raspberrypi.rpi-imager app.resp.RESP \
 com.transmissionbt.Transmission org.kde.umbrello \
 com.github.sdv43.whaler net.davidotek.pupgui2 \
-net.lutris.Lutris com.skype.Client \
+net.lutris.Lutris com.skype.Client fr.handbrake.ghb \
 org.freedownloadmanager.Manager
 ```
 

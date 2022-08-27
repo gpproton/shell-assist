@@ -47,6 +47,7 @@ cat /etc/dnf/dnf.conf
 sudo dnf install -y  https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf groupupdate -y core
 sudo dnf copr enable kwizart/fedy
 sudo dnf update -y
 sudo dnf install fedy -y
@@ -83,6 +84,9 @@ flatpak install com.mattjakeman.ExtensionManager
 ```bash
 sudo dnf install -y wget curl caffeine \
 timeshift google-chrome-stable dnf-plugins-core
+## Setup network display feature
+sudo dnf -y install gstreamer1-vaapi && \
+flatpak install -y flathub org.gnome.NetworkDisplays
 ```
 
 ## Start general extensions setup
@@ -415,7 +419,7 @@ com.notepadqq.Notepadqq md.obsidian.Obsidian \
 org.raspberrypi.rpi-imager app.resp.RESP \
 com.transmissionbt.Transmission org.kde.umbrello \
 com.github.sdv43.whaler net.davidotek.pupgui2 \
-net.lutris.Lutris com.skype.Client \
+net.lutris.Lutris com.skype.Client fr.handbrake.ghb \
 org.freedownloadmanager.Manager
 ```
 

@@ -19,6 +19,13 @@ sudo dnf install -y system76-scheduler libgtop2-devel lm_sensors
 sudo systemctl enable --now com.system76.Scheduler.service
 sudo systemctl start com.system76.Scheduler.service
 sudo dnf install -y gnome-shell-extension-cpupower
+echo 'Setting up dependencies for sudo dnf install -y procps-ng ydotool...'
+sudo dnf install -y procps-ng ydotool
+
+## Work around for X11 touchpad gustures.
+sudo dnf install -y touchegg &&
+    sudo systemctl start touchegg &&
+    sudo systemctl enable touchegg
 
 APPS_PATH="$HOME/apps"
 EXTENSION_TEMP_PATH="$APPS_PATH/extension"
@@ -31,7 +38,7 @@ mkdir -p $APPS_PATH &&
 
 mkdir -p $EXTENSION_TEMP_PATH
 cd $EXTENSION_TEMP_PATH
-array=(s76-scheduler@mattjakeman.com Vitals@CoreCoding.com blur-my-shell@aunetx GPU_profile_selector@lorenzo9904.gmail.com gnome-ui-tune@itstime.tech arcmenu@arcmenu.com notification-position@drugo.dev autoselectheadset@josephlbarnett.github.com)
+array=(s76-scheduler@mattjakeman.com Vitals@CoreCoding.com blur-my-shell@aunetx GPU_profile_selector@lorenzo9904.gmail.com gnome-ui-tune@itstime.tech arcmenu@arcmenu.com notification-position@drugo.dev autoselectheadset@josephlbarnett.github.com another-window-session-manager@gmail.com x11gestures@joseexposito.github.io)
 for i in "${array[@]}"; do
     VERSION_TAG=$(curl -Lfs "https://extensions.gnome.org/extension-query/?search=${i}" | jq '.extensions[0] | .shell_version_map | map(.pk) | max')
     wget -O "${i}.zip" "https://extensions.gnome.org/download-extension/${i}.shell-extension.zip?version_tag=$VERSION_TAG"

@@ -402,6 +402,22 @@ sudo dnf install akmod-nvidia -y
 sudo dnf install xorg-x11-drv-nvidia-cuda
 ```
 
+## Setup java related tools
+
+```bash
+curl -s "https://get.sdkman.io" | bash
+{
+sdk install gradle
+sdk install maven
+sdk install java 11.0.16-ms
+sdk install groovy
+sdk install kotlin
+sdk install kscript
+sdk install springboot
+sdk install micronaut
+}
+```
+
 ## Install required flatpak apps
 
 ```bash

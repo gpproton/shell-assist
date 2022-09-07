@@ -89,6 +89,18 @@ sudo dnf -y install gstreamer1-vaapi && \
 flatpak install -y flathub org.gnome.NetworkDisplays
 ```
 
+## Install virtualization features
+
+```bash
+## Required dependencies
+sudo dnf install bash curl file git unzip which xz zip mesa-libGLU clang cmake ninja-build pkg-config gtk3-devel
+## Start virtualization setups
+sudo dnf group install --with-optional virtualization
+sudo systemctl start libvirtd
+sudo systemctl enable libvirtd
+lsmod | grep kvm
+```
+
 ## Start general extensions setup
 
 ```bash
@@ -445,6 +457,11 @@ org.freedownloadmanager.Manager
 cd ~ && rm -rf ~/dotnet-install.sh && \
 curl 'https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh' -o ~/dotnet-install.sh && \
 chmod +x dotnet-install.sh && ./dotnet-install.sh -c LTS
+
+sudo cat > "$HOME/.bashrc" <<'SHELL'
+export DOTNET_ROOT="$HOME/.dotnet"
+export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
+SHELL
 ```
 
 ## NodeJs setup

@@ -458,9 +458,22 @@ cd ~ && rm -rf ~/dotnet-install.sh && \
 curl 'https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.sh' -o ~/dotnet-install.sh && \
 chmod +x dotnet-install.sh && ./dotnet-install.sh -c LTS
 
-sudo cat > "$HOME/.bashrc" <<'SHELL'
+cat > "$HOME/.bashrc" <<'SHELL'
 export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
+SHELL
+```
+
+## Android path setup & emulator launch fix
+
+```bash
+cat > "$HOME/.bashrc" <<'SHELL'
+export ANDROID_HOME="$HOME/Android/Sdk"
+export PATH="$PATH:$ANDROID_HOME:$ANDROID_HOME/tools"
+export PATH="$PATH:$ANDROID_HOME/tools/bin"
+export PATH="$PATH:$ANDROID_HOME/platform-tools"
+## Sample usage => avd <name-of-emulator> | emulator -list-avds
+function avd { cd "$(dirname "$(which emulator)")" && ./emulator -avd "$@"; }
 SHELL
 ```
 

@@ -130,20 +130,28 @@ gnome-extensions enable cpupower@mko-sl.de
 
 # Some development and build tools
 
-``bash
-sudo dnf install -y gcc gcc-g++ boost-devel make autoconf automake redhat-rpm-config golang
-sudo dnf erase -y java-latest-openjdk-devel java-17-openjdk-devel java-1.8.0-openjdk-devel
-sudo dnf install -y java-11-openjdk-devel
+```bash
+#Setup core development tools
+sudo dnf groupinstall -y "Development Tools"
+sudo dnf install -y gcc gcc-g++ boost-devel make autoconf automake redhat-rpm-config golang procps-ng curl file git libxcrypt-compat
 
-````
+#Setup brew package manager
+sudo /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"' >> ~/.bashrc
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+sudo dnf erase -y java-latest-openjdk-devel java-17-openjdk-devel java-1.8.0-openjdk-devel
+#Optional java installation
+#sudo dnf install -y java-11-openjdk-devel
+```
 
 ## Modify ZRAM auto swap generation
+
 ```bash
 ## For default swap
 echo '[zram0]' >> /etc/systemd/zram-generator.conf
 ## Assign half of installed RAM
 echo 'zram-size = ram/2' >> /etc/systemd/zram-generator.conf
-````
+```
 
 ## Optimize system limits
 
@@ -231,46 +239,12 @@ chsh -s $(which zsh)
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 ```
 
-## Install fonts manually
+## Fix zsh shopt error when extending .bashrc
 
 ```bash
-cd ~/Downloads
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-cd ~
-```
-
-## Setup power level
-
-```bash
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-```
-
-## Change ZSH_THEME to below
-
-```
-## ZSH_THEME="powerlevel10k/powerlevel10k"
-
-## and run
-
-source ~/.zshrc
-```
-
-## To reconfigure
-
-```bash
-p10k configure
-```
-
-## Fix shopt error when extending .bashrc
-
-```bash
-## Switch to root
+# Switch to root
 sudo -i
-
-## Create executable
+# Create executable
 sudo cat > /usr/bin/shopt <<'SHELL'
 #!/bin/bash
 args='';
@@ -282,14 +256,43 @@ shopt $args;
 SHELL
 sudo chmod +x /usr/bin/shopt
 exit
-
-## Add to profile
+# Add to profile
 echo "alias shopt='/usr/bin/shopt'" >> ~/.zshrc
 cat >> "$HOME/.zshrc" <<'SHELL'
 if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+. "$HOME/.bashrc"
 fi
 SHELL
+
+```
+
+## Install OhMyPosh and other zsh requirements
+
+```bash
+sudo dnf install powerline-fonts
+brew install jandedobbeleer/oh-my-posh/oh-my-posh
+oh-my-posh font install ## Select MesloLGM
+curl https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/jandedobbeleer.omp.json -o ~/dev.oh-my-posh.json
+echo 'eval "$(oh-my-posh init zsh --config ~/dev.oh-my-posh.json)"' >> ~/.zshrc
+source ~/.zshrc
+
+# Added custom font for VsCode
+# "terminal.integrated.defaultProfile.linux": "zsh",
+# "terminal.integrated.fontFamily": "MesloLGS NF",
+# Update gnome terminal to use 'MesloLGS NF' font
+```
+
+## Optional power level setup (if OhMyPosh is not installed)
+
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+# Change ZSH_THEME to below
+ZSH_THEME="powerlevel10k/powerlevel10k"
+# Start setup and configure
+source ~/.zshrc
+# . "$HOME/.bashrc"
+To reconfigure
+p10k configure
 ```
 
 ## Setup shell aliases

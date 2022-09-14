@@ -464,6 +464,12 @@ chmod +x dotnet-install.sh && ./dotnet-install.sh -c LTS
 cat > "$HOME/.bashrc" <<'SHELL'
 export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
+
+## Setup mono development package (Optional)
+sudo dnf install -y mono-devel
+
+## Install linux compatible workloads
+dotnet workload install maui-android android android-33 wasm-tools wasm-experimental
 SHELL
 ```
 
@@ -487,6 +493,13 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 
 curl -fsSL https://get.pnpm.io/install.sh | sh - && \
 source ~/.zshrc && nvm install --lts && \
 pnpm i -g npm yarn pnpm typescript ts-node rimraf
+```
+
+## Github action local tool
+
+```bash
+sudo dnf copr enable -y rubemlrm/act-cli
+sudo dnf install -y act-cli
 ```
 
 ## Setup onedrive sync

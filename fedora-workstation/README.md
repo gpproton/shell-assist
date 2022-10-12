@@ -469,7 +469,7 @@ export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
 sudo dnf install -y mono-devel
 
 ## Install linux compatible workloads
-dotnet workload install maui-android android android-33 wasm-tools wasm-experimental
+dotnet workload install wasm-tools wasm-tools-net6 wasm-experimental android maui-android macos maui-windows
 SHELL
 ```
 
@@ -500,6 +500,15 @@ pnpm i -g npm yarn pnpm typescript ts-node rimraf
 ```bash
 sudo dnf copr enable -y rubemlrm/act-cli
 sudo dnf install -y act-cli
+```
+
+## Balena ecther app
+
+```bash
+curl -1sLf \
+   'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+   | sudo -E bash
+sudo dnf install balena-etcher-electron -y
 ```
 
 ## Setup onedrive sync

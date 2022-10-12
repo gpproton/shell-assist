@@ -327,6 +327,20 @@ meson build
 sudo ninja -C "build" install
 ```
 
+## Setup numix circle icons & Nordic darker
+
+```bash
+sudo dnf copr enable numix/numix
+sudo dnf install numix-icon-theme numix-icon-theme-circle
+### OR
+git clone https://github.com/numixproject/numix-icon-theme-circle.git && \
+mv numix-icon-theme-circle ~/.themes/numix-icon-theme-circle
+
+## More themes
+wget https://github.com/EliverLara/Nordic/releases/download/v2.2.0/Nordic-darker-v40.tar.xz && \
+tar -xvzf Nordic-darker-v40.tar.xz && mv Nordic-darker-v40 ~/themes/Nordic-darker-v40/
+```
+
 ## Pop fonts
 
 ```bash

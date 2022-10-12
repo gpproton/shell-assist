@@ -17,7 +17,7 @@ alias .4='cd ../../../../'
 alias .5='cd ../../../../..'
 
 ## Create directory and move into it.
-function mkcd() {
+function mcd() {
     mkdir -p $1
     cd $1
 }
@@ -28,6 +28,17 @@ alias fgrep='fgrep --color=auto'
 
 # Force remove files and directories
 alias rmf='rm -rfv'
+# Clear build files for some dev envs
+function rmdev() {
+    dev_build_dirs=(build bin venv env dist .quasar .output .next .nuxt node_modules .composer)
+    for dir in "${dev_build_dirs[@]}"; do
+        echo "Trying deletion for $dir/*"
+        if (rm -rf ./**/$dir/ &>/dev/null); then
+            echo "Deletion for $dir/* successfully completed"
+        fi
+    done
+    unset dev_build_dirs
+}
 # do not delete / or prompt if deleting more than 3 files at a time #
 alias rm='rm -I --preserve-root'
 

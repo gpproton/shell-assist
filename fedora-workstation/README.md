@@ -451,7 +451,7 @@ org.raspberrypi.rpi-imager app.resp.RESP \
 com.transmissionbt.Transmission org.kde.umbrello \
 com.github.sdv43.whaler net.davidotek.pupgui2 \
 net.lutris.Lutris com.skype.Client fr.handbrake.ghb \
-org.freedownloadmanager.Manager
+org.freedownloadmanager.Manager com.emqx.MQTTX
 ```
 
 ## dotnet setup
@@ -464,6 +464,12 @@ chmod +x dotnet-install.sh && ./dotnet-install.sh -c LTS
 cat > "$HOME/.bashrc" <<'SHELL'
 export DOTNET_ROOT="$HOME/.dotnet"
 export PATH="$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools"
+
+## Setup mono development package (Optional)
+sudo dnf install -y mono-devel
+
+## Install linux compatible workloads
+dotnet workload install wasm-tools wasm-tools-net6 wasm-experimental android maui-android macos maui-windows
 SHELL
 ```
 
@@ -487,6 +493,22 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash 
 curl -fsSL https://get.pnpm.io/install.sh | sh - && \
 source ~/.zshrc && nvm install --lts && \
 pnpm i -g npm yarn pnpm typescript ts-node rimraf
+```
+
+## Github action local tool
+
+```bash
+sudo dnf copr enable -y rubemlrm/act-cli
+sudo dnf install -y act-cli
+```
+
+## Balena ecther app
+
+```bash
+curl -1sLf \
+   'https://dl.cloudsmith.io/public/balena/etcher/setup.rpm.sh' \
+   | sudo -E bash
+sudo dnf install balena-etcher-electron -y
 ```
 
 ## Setup onedrive sync

@@ -9,7 +9,7 @@ function fn-get-file() {
         compose_file="docker-compose.yml"
     fi
     if [ ! -f $env_file ]; then
-        env_file=".env.dev"
+        env_file=".env.sample"
     fi
     [ -f $env_file ] && export $(sed '/^#/d' $env_file)
     ## Env and compose file validation

@@ -27,7 +27,7 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # Force remove files and directories
-alias rmf='rm -rfv'
+alias rmf='rm -rf'
 # Clear build files for some dev envs
 function rmdev() {
     dev_build_dirs=(build bin venv env dist .quasar .output .next .nuxt node_modules .composer)

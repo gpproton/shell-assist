@@ -22,3 +22,21 @@ cat >> ~/.bashrc << EOF
 [[ -f $ALIAS_HELPER_DIR/docker-stack.bashrc ]] && . $ALIAS_HELPER_DIR/docker-stack.bashrc
 EOF
 ```
+
+## Use loop to source aliases
+
+```bash
+# If using ZSH
+if [ -f "$HOME/.bashrc" ]; then
+. "$HOME/.bashrc"
+fi
+
+# Load user specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+	for rc in ~/.bashrc.d/*.bashrc; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
+fi
+```

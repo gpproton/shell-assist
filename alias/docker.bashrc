@@ -50,4 +50,9 @@ alias dim="docker images"
 alias dps="docker ps"
 alias dpsa="docker ps -a"
 alias dsp="docker system prune --all"
+function dprune() {
+  docker rm -f $(docker ps -q) &&
+    docker rmi $(docker images -q) &&
+    echo y | docker system prune
+}
 alias dpull='docker pull'

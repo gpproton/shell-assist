@@ -23,17 +23,17 @@ chmod +x ./setup.sh
 - [x] Docker swarm alias
 - [ ] Kubernetes setup
 - [ ] Linux network setup
-- [ ] Linux Dev workstation setups
-- [ ] WSL setup
-- [ ] Windows package setup
-- [ ] Windows Dev setup
+- [ ] Linux Dev workstation setup
+- [x] WSL setup
+- [x] Windows package manager setup
+- [x] Windows Dev setup
 
 ## Compatible operating system
 - [x] OpenSuse
-- [x] Fedora
+- [ ] Fedora
 - [ ] Ubuntu
 - [ ] Windows WSL
-- [ ] Windows
+- [x] Windows
 - [x] Mac OS
 
 MIT License

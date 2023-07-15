@@ -1,5 +1,9 @@
 {
     "recommendations": [
+        "redhat.vscode-yaml",
+        "ms-vscode-remote.remote-wsl",
+        "redhat.vscode-xml",
+        "wayou.vscode-todo-highlight",
         "foxundermoon.shell-format"
     ]
 }

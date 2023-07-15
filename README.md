@@ -1,27 +1,44 @@
-# Persnal Shell Assist collections
+# Personal Shell Assist collections
 
 Scripts to perform rapid setup and simplify shell commands, although these can be done using ansible this repo is intended to keep samples for direct shell execution.
 
+```bash
+git clone https://github.com/gpproton/shell-assist.git && \
+cd shell-assist && \
+chmod +x ./setup.sh
+```
+
+## Setup unix alias
+
+```bash
+./setup alias
+```
+
 ## Roadmap for utilities
+- [x] Alias setup
 - [ ] Basic servers setup
 - [ ] Docker setup
+- [x] Docker alias
+- [x] Docker compose alias
+- [x] Docker swarm alias
 - [ ] Kubernetes setup
 - [ ] Linux network setup
-- [ ] Alias setup
 - [ ] Linux Dev workstation setups
 - [ ] WSL setup
+- [ ] Windows package setup
 - [ ] Windows Dev setup
 
 ## Compatible operating system
-- [ ] OpenSuse
-- [ ] Fedora
+- [x] OpenSuse
+- [x] Fedora
 - [ ] Ubuntu
 - [ ] Windows WSL
-- [ ] Mac OS
+- [ ] Windows
+- [x] Mac OS
 
 MIT License
 
-Copyright (c) 2022 <Godwin peter .O>me@godwin.dev
+Copyright (c) 2023 [Godwin peter .O](mailto:me@godwin.dev)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

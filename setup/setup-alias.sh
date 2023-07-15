@@ -1,9 +1,9 @@
 #!/bin/bash
 
-function load_alias_script() {
-	if [[ -x "$(command -v grep "shell-assist" -q $HOME/.bashrc)" ]]; then
-		## copy to newly created directory
-		cat >>"$HOME/.bashrc" <<SHELL
+function register_profile_alias() {
+	alias_configured=$(cat $shell_profile_file | grep -c "shell-assist")
+	if [[ $alias_configured -eq 0 ]]; then
+		cat >>"$shell_profile_file" <<SHELL
 
 ## start shell-assist
 ALIAS_PATH="\$HOME/shell-assist/alias"
@@ -15,9 +15,10 @@ if [ -d \$ALIAS_PATH ]; then
 	done
 fi
 ## end shell-assist
+
 SHELL
+		echo "alias configuration successful..."
+	else
+		echo "alias already configured..."
 	fi
-	## reload shell environment
-	echo "reloading shell environment.."
-	source "$HOME/.bashrc"
 }

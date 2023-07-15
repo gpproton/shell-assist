@@ -10,10 +10,10 @@ function load_environment_variables() {
     source <(cat $env_file | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
     set +a
 
-    unset $env_file
+    unset env_file
 }
 
-function load_os_info() {
+function load_os_information() {
     os_type=$(uname -s)
     if [ $os_type == "Darwin" ]; then
         os_variant=$os_type

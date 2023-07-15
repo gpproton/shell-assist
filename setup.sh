@@ -1,12 +1,13 @@
 #!/bin/bash
 
-os_defaults="$(dirname $0)/util/os-defaults.sh"
-setup_alias="$(dirname $0)/setup/setup-alias.sh"
+os_defaults="$(dirname $0)/util/defaults.sh"
 
 # Load OS information
-if [ -f "$os_defaults" ]; then source $os_defaults && load_os_info; fi
-## Load alias setup functions
-if [ -f $setup_alias ]; then source $setup_alias; fi
+if [ -f "$os_defaults" ]; then
+    source $os_defaults && load_os_info
+    load_environment_variables
+    load_shell_properties
+fi
 
 function help_content() {
     cat <<-EOF
@@ -26,6 +27,10 @@ options:
 alias:  Setup shell alias usage
 usage: ./setup alias
 
+-------------------------------------------------------
+certificate:  Setup self signed certificate
+usage: ./setup certificate
+
 
 -------------------------------------------------------
 docker:  Setup docker environment
@@ -42,10 +47,20 @@ EOF
 case $1 in
 "alias")
     echo "starting alias setup..."
-    register_profile_alias
+    setup_alias="$(dirname $0)/setup/setup-alias.sh"
+    if [ -f $setup_alias ]; then
+        source $setup_alias
+        register_profile_alias
+    fi
+
     ;;
 "docker")
     echo "Starting docker setup..."
+    ;;
+"certificate")
+    echo "Starting self signed certificate setup..."
+    certificate="$(dirname $0)/certificate/setup.sh"
+    if [ -f $certificate ]; then source $certificate && setup_certificate; fi
     ;;
 "dev")
     echo "Starting  development work station setup..."

@@ -1,3 +1,9 @@
+####################################
+### Windows linux setup sub system
+####################################
+
+#Requires -RunAsAdministrator
+
 Write-Output "Setting up Windows Linux SubSystem..."
 Enable-WindowsOptionalFeature -Online -FeatureName 'Microsoft-Windows-Subsystem-Linux' -All -NoRestart
 Enable-WindowsOptionalFeature -Online -FeatureName 'VirtualMachinePlatform' -All -NoRestart

@@ -1,5 +1,6 @@
-if [ -f "$(dirname $0)/_docker.bashrc" ]; then
-  source "$(dirname $0)/_docker.bashrc"
+docker_utils="$(dirname $0)/../docker-utils.sh"
+if [ -f "$docker_utils" ]; then
+  source $docker_utils
 fi
 
 function dsd() {

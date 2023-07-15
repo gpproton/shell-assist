@@ -1,12 +1,23 @@
-# Unix Assist collections
+# Persnal Shell Assist collections
 
-Scripts to perform rapid setup and simplify shell commands for any unix compatible system.
+Scripts to perform rapid setup and simplify shell commands, although these can be done using ansible this repo is intended to keep samples for direct shell execution.
 
 ## Roadmap for utilities
-- [ ] Change all script commands to functions
-- [ ] implement command secltion for script
-- [ ] Add variables for OS types
-- [ ] Implement conditional command per OS
+- [ ] Basic servers setup
+- [ ] Docker setup
+- [ ] Kubernetes setup
+- [ ] Linux network setup
+- [ ] Alias setup
+- [ ] Linux Dev workstation setups
+- [ ] WSL setup
+- [ ] Windows Dev setup
+
+## Compatible operating system
+- [ ] OpenSuse
+- [ ] Fedora
+- [ ] Ubuntu
+- [ ] Windows WSL
+- [ ] Mac OS
 
 MIT License
 

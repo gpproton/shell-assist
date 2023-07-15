@@ -1,3 +1,4 @@
+// TODO: Use ZRAM for rhel based distrabution
 function fn-setup-swap() {
     defaut_swap_size=${1:"8G"}
     ## Small swap space creation, crucial if RAM is limited.
@@ -16,9 +17,10 @@ function fn-add-system-limits() {
     ## To increase the available limit to say 999999
     sudo cat >/etc/sysctl.conf <<'EOF'
 fs.file-max = 1024000
+fs.inotify.max_user_watches = 1000000
 vm.swappiness=15
 vm.vfs_cache_pressure=50
-vm.max_map_count = 999999
+vm.max_map_count = 1024000
 net.ipv4.ip_local_port_range = 1024 65535
 net.ipv4.ip_forward = 1
 EOF

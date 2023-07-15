@@ -1,21 +1,9 @@
 #!/bin/bash
 
 function register_profile_alias() {
-	active_shell=$(echo $SHELL | sed -E 's/^.*\/([aA-zZ]+$)/\1/g')
-	
-	if [[ $active_shell == "bash" && $os_type == "Darwin" ]]; then
-		shell_file="$HOME/.profile"
-	elif [[ $active_shell == "zsh" ]]; then
-		shell_file="$HOME/.zshrc"
-	else shell_file="$HOME/.bashrc"
-	fi
-	
-	## TODO: fix condition
-	if grep -Fxq "shell-assist" $shell_file; then
-		echo "alias already configured..."
-	else
-		## copy to newly created directory
-		cat >>"$shell_file" <<SHELL
+	alias_configured=$(cat $shell_profile_file | grep -c "shell-assist")
+	if [[ $alias_configured -eq 0 ]]; then
+		cat >>"$shell_profile_file" <<SHELL
 
 ## start shell-assist
 ALIAS_PATH="\$HOME/shell-assist/alias"
@@ -27,7 +15,10 @@ if [ -d \$ALIAS_PATH ]; then
 	done
 fi
 ## end shell-assist
+
 SHELL
 		echo "alias configuration successful..."
+	else
+		echo "alias already configured..."
 	fi
 }

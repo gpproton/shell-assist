@@ -16,7 +16,7 @@ OS VARIANT: $os_variant
 ========================================================
 ===================== SHELL-ASSIST =====================
 
-usage: ./play [-h] [--help]
+usage: ./setup [-h] [--help]
 
 options:
 
@@ -42,7 +42,7 @@ EOF
 case $1 in
 "alias")
     echo "starting alias setup..."
-    load_alias_script
+    register_profile_alias
     ;;
 "docker")
     echo "Starting docker setup..."

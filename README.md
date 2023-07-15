@@ -26,7 +26,7 @@ chmod +x ./setup.sh
 
 ## Compatible operating system
 - [ ] OpenSuse
-- [ ] Fedora
+- [*] Fedora
 - [ ] Ubuntu
 - [ ] Windows WSL
 - [ ] Mac OS

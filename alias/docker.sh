@@ -1,4 +1,11 @@
+#!/bin/bash
 ## Docker command aliases
+
+alias dim="docker images"
+alias dps="docker ps"
+alias dpsa="docker ps -a"
+alias dsp="docker system prune --all"
+alias dpull='docker pull'
 
 function dnames {
   for ID in $(docker ps | awk '{print $1}' | grep -v 'CONTAINER'); do
@@ -46,13 +53,12 @@ function drmid {
   [ ! -z "$imgs" ] && docker rmi "$imgs" || echo "no dangling images."
 }
 
-alias dim="docker images"
-alias dps="docker ps"
-alias dpsa="docker ps -a"
-alias dsp="docker system prune --all"
 function dprune() {
   docker rm -f $(docker ps -q) &&
     docker rmi $(docker images -q) &&
-    echo y | docker system prune
+    echo y | docker system prunealias dim="docker images"
+  alias dps="docker ps"
+  alias dpsa="docker ps -a"
+  alias dsp="docker system prune --all"
+  alias dpull='docker pull'
 }
-alias dpull='docker pull'

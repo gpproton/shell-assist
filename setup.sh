@@ -4,7 +4,7 @@ os_defaults="$(dirname $0)/util/defaults.sh"
 
 # Load OS information
 if [ -f "$os_defaults" ]; then
-    source $os_defaults && load_os_info
+    source $os_defaults && load_os_information
     load_environment_variables
     load_shell_properties
 fi
@@ -47,7 +47,7 @@ EOF
 case $1 in
 "alias")
     echo "starting alias setup..."
-    setup_alias="$(dirname $0)/setup/setup-alias.sh"
+    setup_alias="$(dirname $0)/common/setup-alias.sh"
     if [ -f $setup_alias ]; then
         source $setup_alias
         register_profile_alias

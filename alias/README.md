@@ -1,4 +1,4 @@
-# Variuos unix alias helpers
+# Terminal alias setup
 
 ```bash
 cd $HOME
@@ -9,16 +9,9 @@ else
 fi
 ```
 
-## Use loop to source aliases
+## Setup alias
 ```bash
-alias="$HOME/shell-assist/alias"
-if [ -d $alias/ ]; then
-	for rc in $alias/*.sh; do
-		if [ -f "$rc" ]; then
-			. "$rc"
-		fi
-	done
-fi
+./setup.sh alias
 ```
 
 ## If using ZSH

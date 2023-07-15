@@ -14,6 +14,10 @@ chmod +x ./setup.sh
 ./setup alias
 ```
 
+```powershell
+.\setup.ps1
+```
+
 ## Roadmap for utilities
 - [x] Alias setup
 - [ ] Basic servers setup

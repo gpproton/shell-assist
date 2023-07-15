@@ -1,3 +1,5 @@
+#Requires -RunAsAdministrator
+
 Write-Output "Installing VsCode"
 winget install vscode
 Write-Output "Installing Microsoft Visual Studio 2022"

@@ -1,3 +1,5 @@
+#Requires -RunAsAdministrator
+
 ## Winget stup for windows
 if ((Get-ComputerInfo | Select-Object -expand OsName) -match 10) {
     Write-Output "Starting Winget setup"

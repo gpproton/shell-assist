@@ -1,3 +1,5 @@
+#Requires -RunAsAdministrator
+
 Write-Output "Installing Mozilla Firefox Developer Edition"
 winget install --id=Mozilla.Firefox.DeveloperEdition -e
 Write-Output "Installing Github Packages"

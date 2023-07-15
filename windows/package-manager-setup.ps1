@@ -8,3 +8,6 @@ if ((Get-ComputerInfo | Select-Object -expand OsName) -match 10) {
 else {
     Install-Module -Name Microsoft.WinGet.Client -Force -AllowPrerelease -AcceptLicense
 }
+
+## chocolatey setup
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))

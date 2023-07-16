@@ -57,7 +57,7 @@ case $1 in
 "docker")
     echo "Starting docker setup..."
     ;;
-"certificate")
+"cert")
     echo "Starting self signed certificate setup..."
     certificate="$(dirname $0)/certificate/setup.sh"
     if [ -f $certificate ]; then source $certificate && setup_certificate; fi

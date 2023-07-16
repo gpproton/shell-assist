@@ -45,4 +45,11 @@ certutil -d sql:$HOME/.pki/nssdb -A -t "C,," -n ${cert_name} -i ${cert_path}/${c
 firefox_profile=""
 certutil -d sql:$HOME/.mozilla/firefox/${firefox_profile}/ -A -t "P,," -n ${cert_name} -i ${cert_path}/${cert_name}.crt
 certutil -d sql:$HOME/.mozilla/firefox/${firefox_profile}/ -A -t "C,," -n ${cert_name} -i ${cert_path}/${cert_name}.crt
+
+
+## Fix corrupted store
+mv ~/.pki/nssdb ~/.pki/nssdb.corrupted
+mkdir ~/.pki/nssdb
+chmod 700 ~/.pki/nssdb
+certutil -d sql:$HOME/.pki/nssdb -N
 ```

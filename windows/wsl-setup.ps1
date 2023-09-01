@@ -16,4 +16,4 @@ Start-Process ./wsl-kernel.msi -ArgumentList "/quiet /passive"
 Remove-Item ./wsl-kernel.msi
 
 Write-Output "Installing Ubuntu image.."
-wsl --install Ubuntu
+wsl --install -d Ubuntu

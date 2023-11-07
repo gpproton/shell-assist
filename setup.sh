@@ -1,13 +1,11 @@
 #!/bin/bash
 
-os_defaults="$(dirname $0)/util/defaults.sh"
+source "$(dirname $0)/util/defaults.sh"
 
 # Load OS information
-if [ -f "$os_defaults" ]; then
-    source $os_defaults && load_os_information
-    load_environment_variables
-    load_shell_properties
-fi
+load_os_information
+load_environment_variables
+load_shell_properties
 
 function help_content() {
     cat <<-EOF

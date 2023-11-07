@@ -1,16 +1,9 @@
-docker_utils="$(dirname $0)/../docker-utils.sh"
-if [ -f "$docker_utils" ]; then
-  source $docker_utils
-fi
-
+# source "$(dirname $0)/../util/docker-utils.sh"
 function dsd() {
-  unset ddir
-  ddir=${2:-${PWD##*/}}
-  fn-get-file $ddir $1
-  (
-    [ -f $env_file ] && export $(sed '/^#/d' $env_file)
-    docker stack deploy --prune --compose-file $compose_file $stack
-  )
+  stack=${2:-${PWD##*/}}
+  compose_file=${1:-docker-compose.yaml}
+  docker stack deploy -c <(echo -e "version: '3.9'"; docker compose -f "$compose_file" config | (sed "/published:/s/\"//g") | (sed "/^name:/d")) "$stack"
+  unset compose_file stack_name
 }
 
 alias dsrm="docker stack rm"

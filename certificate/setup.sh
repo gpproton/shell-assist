@@ -11,7 +11,7 @@ function setup_certificate() {
 
         if [[ -f $HOME/$certificate_config ]]; then
             echo "generating certificate keys"
-            openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+            openssl req -x509 -nodes -days 3650 -newkey rsa:4096 \
                 -keyout $certificate_root/localhost.key \
                 -out $certificate_root/localhost.crt \
                 -config $certificate_root/localhost.conf
@@ -22,9 +22,6 @@ function setup_certificate() {
         if [[ $os_type -eq "linux" ]]; then
             if [[ $os_variant -eq "opensuse" ]]; then
                 echo "apply private key for $os_variant"
-                ## posible cert locations
-                # 0: /usr/share/pki/trust/anchors
-                # 1: /etc/pki/trust/anchors
                 sudo cp $certificate_root/localhost.crt /etc/pki/trust/anchors
                 sudo update-ca-certificates
             fi

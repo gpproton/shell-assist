@@ -73,3 +73,11 @@ alias fastping='ping -c 100 -s.2'
 alias ports='netstat -tulanp'
 
 alias wget='wget -c'
+
+alias dev="cd $HOME/dev-box"
+alias sand="cd $HOME/dev-sandbox"
+alias dbox="cd $HOME/devilbox"
+alias ddocs="cd $HOME/dev-docs"
+alias drand="cd $HOME/dev-randoms"
+alias diot="cd $HOME/dev-iot"
+alias dmedia="cd $HOME/dev-media"

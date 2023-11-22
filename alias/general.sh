@@ -74,10 +74,13 @@ alias ports='netstat -tulanp'
 
 alias wget='wget -c'
 
-alias dev="cd $HOME/dev-box"
-alias sand="cd $HOME/dev-sandbox"
-alias dbox="cd $HOME/devilbox"
-alias ddocs="cd $HOME/dev-docs"
-alias drand="cd $HOME/dev-randoms"
-alias diot="cd $HOME/dev-iot"
-alias dmedia="cd $HOME/dev-media"
+export DEV_BOX="$HOME/work/dev-box"
+export SANDBOX="$HOME/work/dev-sandbox"
+alias dev="cd $DEV_BOX"
+alias box="cd $DEV_BOX"
+alias sand="cd $SANDBOX"
+alias sandbox="cd $SANDBOX"
+alias devil="cd $HOME/devilbox"
+alias docs="cd $HOME/work/dev-docs"
+alias rands="cd $HOME/work/dev-randoms"
+alias media="cd $HOME/space/media"

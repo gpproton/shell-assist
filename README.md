@@ -42,6 +42,6 @@ chmod +x ./setup.sh
 
 ## License
 
-Trace is license under the [MIT](./LICENSE.md) [![MIT](https://img.shields.io/badge/mit-blue.svg?style=flat-square)](./LICENSE.md)
+shell-assist is license under the [MIT](./LICENSE.md) [![MIT](https://img.shields.io/badge/mit-blue.svg?style=flat-square)](./LICENSE.md)
 
 - Godwin peter .O ([me@godwin.dev](mailto:me@godwin.dev))
